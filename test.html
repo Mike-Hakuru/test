@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tra cứu chỗ ngồi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      border-radius: 5px;
+      display: none;
+    }
+    .error {
+      color: red;
+      margin-top: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Tra cứu chỗ ngồi</h2>
+  <input type="tel" id="phoneInput" placeholder="Nhập số điện thoại..." />
+  <button onclick="searchSeat()">Tìm kiếm</button>
+  <div id="resultBox" class="result"></div>
+  <div id="errorMsg" class="error"></div>
+</div>
+
+<script>
+  // Danh sách chỗ ngồi theo số điện thoại
+  const seatData = {
+    "0973250251": { name: "Nguyễn Thị Thủy", seat: "Q3", note:"Hàng Vip II" },
+    "0338660276": { name: "Nguyễn Thị Thắm", seat: "Q5",note:"Hàng Vip II" },
+    "0975478897": { name: "Nguyễn Thị Lê", seat: "Q7", note:"Hàng Vip II" },
+    "0947922992": { name: "Phạm Thị Thảo", seat: "Q9", note:"Hàng Vip II" },
+    // 👉 Bạn có thể thêm nhiều dữ liệu ở đây "0973250251": { name: "Nguyễn Thị Thủy", seat: "Q3", note:"Vip II" },
+    "0334214445": { name: "Hoàng Thị Thu Hà", seat: "R21",note:"Hàng A" },
+    "0327237307": { name: "Dương Thị Hoa", seat: "R23", note:"Hàng A" },
+    "0972942885": { name: "Lê Thị Liễu", seat: "R25", note:"Hàng A" } ,
+   
+  };
+
+  function searchSeat() {
+    const phone = document.getElementById("phoneInput").value.trim();
+    const resultBox = document.getElementById("resultBox");
+    const errorMsg = document.getElementById("errorMsg");
+
+    resultBox.style.display = "none";
+    errorMsg.textContent = "";
+
+    if (seatData[phone]) {
+      const info = seatData[phone];
+      resultBox.innerHTML = `
+        <strong>Họ tên:</strong> ${info.name}<br>
+        <strong>Trước chương trình (18h30 - 19h30): </strong> ${info.note}<br>
+        <strong>Trong chương trình (19h30 - 21h30): </strong> ${info.seat}
+      `;
+      resultBox.style.display = "block";
+    } else {
+      errorMsg.textContent = "Không tìm thấy chỗ ngồi cho số điện thoại này.";
+    }
+  }
+</script>
+
+</body>
+</html>
